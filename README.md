@@ -30,3 +30,8 @@ gendiff file1.json file2.json
 }
 ```
 [![asciicast](https://asciinema.org/a/aL1DFA3eYspbRp6Rc5P8kI5C5.svg)](https://asciinema.org/a/aL1DFA3eYspbRp6Rc5P8kI5C5)
+
+```
+gendiff file1.yml file2.yml or gendiff file1.json file2.yml 
+```
+[![asciicast](https://asciinema.org/a/xuiKV1cZeACtsy9hV109i5tF9.svg)](https://asciinema.org/a/xuiKV1cZeACtsy9hV109i5tF9)
