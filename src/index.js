@@ -2,11 +2,14 @@ import fs from 'fs';
 import path from 'path';
 import process from 'process';
 import _ from 'lodash';
+import parse from './parsers.js';
 
-const parse = (ident) => JSON.parse(fs.readFileSync(path.resolve(process.cwd(), ident), 'utf-8'));
+const getData = (filepath) => fs.readFileSync(path.resolve(process.cwd(), filepath), 'utf-8');
+const getFormat = (filepath) => path.extname(filepath).slice(1);
 
 export default (filepath1, filepath2) => {
-  const [file1, file2] = [parse(filepath1), parse(filepath2)]; // получаем объекты
+  const file1 = parse(getData(filepath1), getFormat(filepath1)); // получаем объекты
+  const file2 = parse(getData(filepath2), getFormat(filepath2)); // получаем объекты
   const [file1Keys, file2Keys] = [Object.keys(file1), Object.keys(file2)]; // получаем ключи
   const uniqKeys = _.uniq([file1Keys, file2Keys].flat()).sort(); // убираем дубли, сортируем ключи по алфавиту
   const lines = uniqKeys.map((key) => {

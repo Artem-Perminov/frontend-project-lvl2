@@ -1,4 +1,4 @@
-const jsonDiff = `{
+const diff = `{
   - follow: false
     host: hexlet.io
   - proxy: 123.234.53.22
@@ -7,4 +7,4 @@ const jsonDiff = `{
   + verbose: true
 }`;
 
-export default jsonDiff;
+export default diff;
