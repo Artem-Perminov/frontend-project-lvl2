@@ -1,28 +1,36 @@
+import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import genDiff from '../src/index.js';
-import diff from '../__fixtures__/diff.js';
 
-describe('GenDiff', () => {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = path.dirname(__filename);
-  const getFixturePath = (ident) => path.join(__dirname, '..', '__fixtures__', ident);
+const getFixturePath = (filename) => path.join('__fixtures__', filename);
 
-  test('Compare two json files', () => {
-    const file1 = 'file1.json';
-    const file2 = 'file2.json';
-    expect(genDiff(getFixturePath(file1), getFixturePath(file2))).toEqual(diff);
-  });
+const json1 = getFixturePath('file1.json');
+const json2 = getFixturePath('file2.json');
+const yml1 = getFixturePath('file1.yml');
+const yml2 = getFixturePath('file2.yml');
+const expectedStylish = fs.readFileSync(getFixturePath('stylish.txt'), 'utf-8');
+const expectedPlain = fs.readFileSync(getFixturePath('plain.txt'), 'utf-8');
+const expectedJSON = fs.readFileSync(getFixturePath('json.txt'), 'utf-8');
 
-  test('Compare two yaml files', () => {
-    const file1 = 'file1.yml';
-    const file2 = 'file2.yml';
-    expect(genDiff(getFixturePath(file1), getFixturePath(file2))).toEqual(diff);
-  });
+const datasets = [
+  [json1, json2, 'stylish', expectedStylish],
+  [yml1, yml2, 'stylish', expectedStylish],
+  [json1, json2, 'plain', expectedPlain],
+  [yml1, yml2, 'plain', expectedPlain],
+  [json1, json2, 'json', expectedJSON],
+  [yml1, yml2, 'json', expectedJSON],
+];
 
-  test('Compare json file and yaml file', () => {
-    const file1 = 'file1.json';
-    const file2 = 'file2.yml';
-    expect(genDiff(getFixturePath(file1), getFixturePath(file2))).toEqual(diff);
+test('Compare files with stylish format by default', () => {
+  expect(genDiff(json1, json2)).toBe(expectedStylish);
+});
+
+test('If formatter is unknown', () => {
+  expect(() => genDiff(yml1, yml2, 'test')).toThrow();
+});
+
+describe.each(datasets)('Test each formatter', (file1, file2, formatter, expected) => {
+  test(`Compare ${path.extname(file1)} files with ${formatter} format`, () => {
+    expect(genDiff(file1, file2, formatter)).toBe(expected);
   });
 });
