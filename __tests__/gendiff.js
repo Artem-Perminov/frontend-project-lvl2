@@ -11,7 +11,7 @@ const getFixturePath = (fileName) => {
 };
 
 const expectedDataStylish = fs.readFileSync(
-  getFixturePath('stylish.txt'),
+  getFixturePath('stylish'),
   'utf8',
 );
 const expectedDataJson = fs.readFileSync(
