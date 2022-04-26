@@ -1,11 +1,11 @@
 {
-  "type": "module",
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Artem-Perminov/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Artem-Perminov/frontend-project-lvl2/actions)",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "jest"
+    "test": "npx -n --experimental-vm-modules jest"
   },
   "jest": {
     "transform": {},
