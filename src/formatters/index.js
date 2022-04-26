@@ -1,11 +1,17 @@
-import stylish from './stylish.js';
-import plain from './plain.js';
-import json from './json.js';
+import makeStylish from './stylish.js';
+import makePlain from './plain.js';
 
-const mapping = {
-  stylish,
-  plain,
-  json,
+const getFormat = (tree, formatName = 'stylish') => {
+  switch (formatName) {
+    case 'stylish':
+      return makeStylish(tree);
+    case 'plain':
+      return makePlain(tree);
+    case 'json':
+      return JSON.stringify(tree);
+    default:
+      throw new Error(`Unknown format ${formatName}`);
+  }
 };
 
-export default (data, formatter) => mapping[formatter](data);
+export default getFormat;

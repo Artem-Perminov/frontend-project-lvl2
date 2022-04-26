@@ -1,9 +1,15 @@
 import yaml from 'js-yaml';
 
-const parsers = {
-  json: JSON.parse,
-  yml: yaml.load,
-  yaml: yaml.load,
+const parse = (rawData, parseType) => {
+  switch (parseType) {
+    case 'json':
+      return JSON.parse(rawData);
+    case 'yaml':
+    case 'yml':
+      return yaml.load(rawData);
+    default:
+      throw new Error(`Unknown extension: ${parseType}`);
+  }
 };
 
-export default (data, format) => parsers[format](data);
+export default parse;

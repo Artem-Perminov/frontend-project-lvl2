@@ -1,44 +1,39 @@
-/* eslint-disable object-curly-newline */
-const checkValue = (data) => {
-  if (data === undefined || data === null) {
-    return data;
-  }
+import _ from 'lodash';
 
-  switch (typeof data) {
-    case 'object':
-      return '[complex value]';
-    case 'string':
-      return `'${data}'`;
-    default:
-      return data;
-  }
+const outputValue = (value) => {
+  if (_.isPlainObject(value)) return '[complex value]';
+  return typeof value === 'string' ? `'${value}'` : value;
 };
 
-const buildString = (data) => {
-  const iter = (content, acc, ancestry) => {
-    const { name, value1, value2, type, children } = content;
+const makePlain = (tree) => {
+  const iter = (currentValue, path) => {
+    const lines = currentValue
+      .filter(({ status }) => status !== 'unchanged')
+      .map((line) => {
+        const keys = [...path, line.key];
+        const property = keys.join('.');
 
-    const newAncestry = `${ancestry}.${name}`;
-    const pattern = `${acc}Property '${newAncestry.slice(1)}'`;
-
-    switch (type) {
-      case 'hasChildren':
-        return children.flatMap((child) => iter(child, acc, newAncestry));
-      case 'added':
-        return `${pattern} was added with value: ${checkValue(value1)}`;
-      case 'deleted':
-        return `${pattern} was removed`;
-      case 'changed':
-        return `${pattern} was updated. From ${checkValue(value2)} to ${checkValue(value1)}`;
-      default:
-        return acc;
-    }
+        switch (line.status) {
+          case 'added':
+            return `Property '${property}' was added with value: ${outputValue(
+              line.value,
+            )}`;
+          case 'deleted':
+            return `Property '${property}' was removed`;
+          case 'changed':
+            return `Property '${property}' was updated. From ${outputValue(
+              line.oldValue,
+            )} to ${outputValue(line.newValue)}`;
+          case 'nested':
+            return iter(line.children, keys);
+          default:
+            throw new Error(`Wrong status: ${line.status}`);
+        }
+      });
+    return lines.join('\n');
   };
 
-  return [iter(data, '', '')]
-    .flat()
-    .filter((item) => item !== '')
-    .join('\n');
+  return iter(tree, []);
 };
 
-export default (data) => data.map((item) => buildString(item)).join('\n');
+export default makePlain;

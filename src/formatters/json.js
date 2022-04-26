@@ -1,5 +1,3 @@
-export default (data) => {
-  const result = data.map((item) => JSON.stringify(item)).join(',');
+const toJson = (value) => JSON.stringify(value);
 
-  return `[${result}]`;
-};
+export default toJson;
