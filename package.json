@@ -2,7 +2,7 @@
   "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/Artem-Perminov/frontend-project-lvl2/workflows/hexlet-check/badge.svg)](https://github.com/Artem-Perminov/frontend-project-lvl2/actions)",
-  "main": "src/index.js",
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "test": "npx -n --experimental-vm-modules jest"
@@ -18,7 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/Artem-Perminov/frontend-project-lvl2.git"
   },
-  "author": "",
+  "author": "Artem Perminov",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Artem-Perminov/frontend-project-lvl2/issues"

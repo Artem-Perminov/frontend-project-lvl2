@@ -21,6 +21,5 @@ rules:
   no-underscore-dangle: [ 2, { "allow": [ "__filename", "__dirname" ] } ]
   import/prefer-default-export: 0
   comma-dangle: 0
-  max-len: 0
 
 
