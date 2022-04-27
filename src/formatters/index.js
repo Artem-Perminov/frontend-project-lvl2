@@ -1,9 +1,9 @@
 import makeStylish from './stylish.js';
 import makePlain from './plain.js';
 
-const getFormat = (tree, formatName = 'stylish') => {
+const getFormat = (tree, formatName = 'stylish.txt') => {
   switch (formatName) {
-    case 'stylish':
+    case 'stylish.txt':
       return makeStylish(tree);
     case 'plain':
       return makePlain(tree);
