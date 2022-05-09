@@ -91,3 +91,9 @@ gendiff -f plain file1.yml file2.json
 ```
 
 [![asciicast](https://asciinema.org/a/ZskrPvbcXxJ6Uvjf9H3B4Flv2.svg)](https://asciinema.org/a/ZskrPvbcXxJ6Uvjf9H3B4Flv2)
+
+```
+gendiff -f json file1.yml file2.json
+```
+
+[![asciicast](https://asciinema.org/a/Vs3OO2SAbmM2ZqkjzoezUEppu.svg)](https://asciinema.org/a/Vs3OO2SAbmM2ZqkjzoezUEppu)
