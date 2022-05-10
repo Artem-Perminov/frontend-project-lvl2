@@ -5,12 +5,10 @@ const createIndent = (level) => {
   const spacesCount = 2;
   const indentSize = level * spacesCount;
 
-  const indents = {
+  return {
     openBracket: replacer.repeat(indentSize - 1),
     closeBracket: replacer.repeat(indentSize - spacesCount),
   };
-
-  return indents;
 };
 
 const stringify = (val, depth) => {
