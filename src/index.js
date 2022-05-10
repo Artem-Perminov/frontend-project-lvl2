@@ -12,9 +12,7 @@ const genDiff = (path1, path2, format = 'stylish') => {
   const dataBefore = getData(buildFullPath(path1));
   const dataAfter = getData(buildFullPath(path2));
   const tree = buildDiffTree(dataBefore, dataAfter);
-  const result = makeFormattedOutput(tree, format);
-
-  return result;
+  return makeFormattedOutput(tree, format);
 };
 
 export default genDiff;
