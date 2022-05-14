@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-const getRightValue = (value) => {
+const getFormatValue = (value) => {
   if (_.isObject(value)) {
     return '[complex value]';
   }
@@ -20,11 +20,11 @@ const plain = (data) => {
       case 'nested':
         return iter(children, currentPath);
       case 'added':
-        return `Property '${fullPath}' was added with value: ${getRightValue(value)}`;
+        return `Property '${fullPath}' was added with value: ${getFormatValue(value)}`;
       case 'removed':
         return `Property '${fullPath}' was removed`;
       case 'updated':
-        return `Property '${fullPath}' was updated. From ${getRightValue(value.value1)} to ${getRightValue(value.value2)}`;
+        return `Property '${fullPath}' was updated. From ${getFormatValue(value.value1)} to ${getFormatValue(value.value2)}`;
       default:
         return null;
     }
