@@ -6,4 +6,9 @@ const parsers = {
   yaml: yaml.load,
 };
 
-export default (data, format) => parsers[format](data);
+export default (data, format) => {
+  if (Object.keys(parsers).includes(format)) {
+    return parsers[format](data);
+  }
+  throw new Error(`Unknown format ${format}`);
+};
